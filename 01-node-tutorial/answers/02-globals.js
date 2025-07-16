@@ -1,0 +1,1 @@
+console.log("File location:" + "\n" + __dirname + "\n" + "Global variable:" + "\n" + process.env.MY_VAR);

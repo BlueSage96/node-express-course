@@ -27,13 +27,57 @@ let item = "Enter something below.";
 // This is just ordinary html with string interpolation.
 const form = () => {
   return `
-  <body>
-  <p>${item}</p>
-  <form method="POST">
-  <input name="item"></input>
-  <button type="submit">Submit</button>
+  <!DOCTYPE html>
+  <html>
+  <body class="light-mode">
+  <style>
+    body {
+      transition: background 0.3s, color 0.3s;
+      padding: 20px;
+    }
+
+    body.light-mode {
+      background-color: #fff;
+      color: #000;
+    }
+
+     body.dark-mode {
+      background-color: #000;
+      color: #fff;
+    }
+
+    button {
+      border: 1px solid gray;
+    }
+
+    .input {
+      border: 1px solid gray;
+      margin-left: 20px;
+      background-color: black;
+      color: white;
+    }
+  </style>
+ 
+  <form method="POST" >
+  <button id="toggleBtn">Toggle theme</button>
   </form>
+
+ <script>
+    const toggleBtn = document.getElementById("toggleBtn");
+    const body = document.body;
+
+    toggleBtn.addEventListener("click", () => {
+       body.classList.toggle("dark-mode"); 
+       body.classList.toggle("light-mode");  
+       if (body.classList.contains("dark-mode")) {
+        toggleBtn.textContent = "Dark Mode";
+      } else if (body.classList.contains("light-mode")) {
+         toggleBtn.textContent = "Light Mode";
+      }
+    });
+  </script>
   </body>
+  </html>
   `;
 };
 
