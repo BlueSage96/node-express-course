@@ -1,18 +1,24 @@
 {
   "name": "tutorial",
   "version": "1.0.0",
-  "description": "",
-  "main": "1-intro.js",
+  "description": "answers package",
+  "main": "01-intro.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "dev": "nodemon answers/prompter.js", 
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Brittany-Price",
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.20"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^3.1.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "node-express-course"
   }
 }
