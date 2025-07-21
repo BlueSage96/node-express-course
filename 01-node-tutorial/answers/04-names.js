@@ -1,9 +1,30 @@
 const names = {
+    james1: 'James',
     peter: 'Peter',
-    james: 'James',
+    james2: 'James',
     paul: 'Paul',
     matthew: 'Matthew',
     andrew: 'Andrew',
-    john: 'John'
+    john: 'John',
+    phillip: 'Phillip',
+    simon: 'Simon',
+    thomas: 'Thomas',
+    judas: 'Judas',
+    jude: 'Jude'
 }
-module.exports = names;
+
+const numbers = [
+  "1.",
+  "2.",
+  "3.",
+  "4.",
+  "5.",
+  "6.",
+  "7.",
+  "8.",
+  "9.",
+  "10.",
+  "11.",
+  "12.",
+];
+module.exports = { names, numbers };
