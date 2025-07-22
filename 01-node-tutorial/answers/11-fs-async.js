@@ -1,6 +1,6 @@
 const {readFile, writeFile} = require("fs");
 const filePath = "./temporary/fileB.txt";
-const names = require("./04-names.js");
+const { names } = require("./04-names.js");
 
 console.log('start');
 writeFile(filePath,`Hey ${names.andrew}, I'm trying to reach ${names.john}. \n`,(error, result) => {

@@ -27,57 +27,68 @@ let item = "Enter something below.";
 // This is just ordinary html with string interpolation.
 const form = () => {
   return `
-  <!DOCTYPE html>
-  <html>
-  <body class="light-mode">
-  <style>
-    body {
-      transition: background 0.3s, color 0.3s;
-      padding: 20px;
-    }
+  <body>
+  <p>${item}</p>
+  <form method="POST">
+  <select name="countries">
+  </select>
 
-    body.light-mode {
-      background-color: #fff;
-      color: #000;
-    }
-
-     body.dark-mode {
-      background-color: #000;
-      color: #fff;
-    }
-
-    button {
-      border: 1px solid gray;
-    }
-
-    .input {
-      border: 1px solid gray;
-      margin-left: 20px;
-      background-color: black;
-      color: white;
-    }
-  </style>
- 
-  <form method="POST" >
-  <button id="toggleBtn">Toggle theme</button>
+  <select name="cities" disabled>
+      <option value=""> Choose a city </option>
+  </select>
+  <input name="item"></input>
+  <button type="submit">Submit</button>
   </form>
 
- <script>
-    const toggleBtn = document.getElementById("toggleBtn");
-    const body = document.body;
+  <script>
+  let countriesData = { 
+     "United States" : ["New York City", "Los Angeles", "Miami", "Chicago"],
+     "Italy" : ["Rome", "Milan", "Turin", "Pompeii"],
+     "Egypt" : ["Cairo", "Thebes", "Alexandria", "Giza"],
+     "Japan" : ["Tokyo", "Kyoto", "Osaka", "Kobe"], 
+     "Spain" : ["Madrid", "Barcelona", "Valencia","Murica"]
+  };
 
-    toggleBtn.addEventListener("click", () => {
-       body.classList.toggle("dark-mode"); 
-       body.classList.toggle("light-mode");  
-       if (body.classList.contains("dark-mode")) {
-        toggleBtn.textContent = "Dark Mode";
-      } else if (body.classList.contains("light-mode")) {
-         toggleBtn.textContent = "Light Mode";
+  let form = document.forms[0];
+  let countriesDropDown = form.countries;
+  let citiesDropDown = form.cities;
+  let jsonData;
+
+  function getCountries(jsonData) {
+    let out = "";
+    out += '<option value="">Choose a country</option>';
+    for (let country in jsonData) {
+      out += '<option value="'+ country + '">'+ country +'</option>';
+    }
+      countriesDropDown.innerHTML = out;
+  }
+
+  function getCities() {
+    let country = countriesDropDown.value;
+    if (country.trim() === "") {
+        //disabled if a country isn't selected
+        citiesDropDown.disabled = true;
+        // show "Choose a city"
+        citiesDropDown.selectedIndex = 0;
+        return false;//stop execution after selecting a city
+    }
+      let cities = jsonData[country];
+      let out = "";
+      out += '<option value="">Choose a city</option>';
+
+      for (let city of cities) {
+        out += '<option value="'+ city + '">'+ city +'</option>';
       }
-    });
+      citiesDropDown.innerHTML = out;
+      citiesDropDown.disabled = false;
+  }
+
+  jsonData = countriesData;
+  getCountries(jsonData);
+  countriesDropDown.addEventListener("change", getCities);
+  
   </script>
   </body>
-  </html>
   `;
 };
 
@@ -102,6 +113,10 @@ const server = http.createServer((req, res) => {
   } else {
     res.end(form());
   }
+});
+
+server.on("request", (req) => {
+  console.log("Event received: ", req.method, req.url);
 });
 
 server.listen(3000);
