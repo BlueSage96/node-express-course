@@ -3,7 +3,6 @@ const path = require('path');
 const app =  express();
 const peopleRouter = require("./routes/people");
 const productRouter = require("./routes/products");
-const { products, people } = require("./data");
 
 const logger = (req,res,next) => {
     const method = req.method;
