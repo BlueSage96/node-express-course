@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const app =  express();
+const parseCookies = require("cookie-parser");;
+const useCookies = require("./routes/cookies")
 const peopleRouter = require("./routes/people");
 const productRouter = require("./routes/products");
 
@@ -25,14 +27,45 @@ app.get('/about', (req,res) => {
 // for parsing
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(parseCookies());
 
 // API stuff
 app.use("/api/v1/people", peopleRouter);
 app.use("/api/v1/products", productRouter);
+app.use("/",useCookies);
 
 app.get("/api/v1/test", (req, res) => {
     res.json({ message: "It worked!"});
 });
+
+const auth = (req, res, next) => {
+    const checkCookies = req.cookies.name;
+    if (checkCookies) {
+        req.user = checkCookies;
+        return next();
+    }
+    return res.status(401).json({ success: false, message: "Unauthorized access" });
+}
+
+// app.post("/login", (req, res) => {
+//     const { name } = req.body;
+//     if (!name) {
+//        return res.status(400).json({ success: false, message: "Please enter a name." });
+//     }
+//     res.cookie("name", name);
+//     return res.status(201).json({ success: true, message: `Welcome ${name}!` });
+    
+// });
+
+// app.delete("/logout", (req, res) => {
+   
+// });
+
+// app.get("/test", auth, (req, res) => {
+  
+// })
+
+
 
 // Wildcard syntax for newer browsers
 app.all(/.*/, (req,res) => {
