@@ -35,6 +35,7 @@ const updatePerson = (req, res) => {
       .status(404)
       .json({ success: false, msg: `no person with id ${id}` })
   }
+  
   const newPeople = people.map((person) => {
     if (person.id === Number(id)) {
       person.name = name
