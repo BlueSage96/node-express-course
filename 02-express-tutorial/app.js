@@ -47,25 +47,6 @@ const auth = (req, res, next) => {
     return res.status(401).json({ success: false, message: "Unauthorized access" });
 }
 
-// app.post("/login", (req, res) => {
-//     const { name } = req.body;
-//     if (!name) {
-//        return res.status(400).json({ success: false, message: "Please enter a name." });
-//     }
-//     res.cookie("name", name);
-//     return res.status(201).json({ success: true, message: `Welcome ${name}!` });
-    
-// });
-
-// app.delete("/logout", (req, res) => {
-   
-// });
-
-// app.get("/test", auth, (req, res) => {
-  
-// })
-
-
 
 // Wildcard syntax for newer browsers
 app.all(/.*/, (req,res) => {
