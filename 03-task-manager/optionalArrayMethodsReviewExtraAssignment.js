@@ -34,7 +34,7 @@ const object = {
   behavior: function() {
     // "this" is a reference to the object we are inside of right now
     this.data++;
-    console.log('OOP demo:', this.data);
+    // console.log('OOP demo:', this.data);
   }
 }
 
@@ -55,7 +55,7 @@ object.behavior()
 //
 // - Array.prototype.push (does not take a callback)
 //
-// These guys all take a callback as input, and then call the callabck for
+// These guys all take a callback as input, and then call the callback for
 // each item in the array
 //
 // - Array.prototype.filter
@@ -64,7 +64,7 @@ object.behavior()
 //     the element is filtered (removed).
 
   const integers = [1, 2, 3, 4, 5];
-// evenNumbers will be interger % 2 for each integer
+// evenNumbers will be integer % 2 for each integer
 // '%' is the "modulo" operator. Here we are checking if `integer` divided by 2, leaves a remainder of 0, which is true for even numbers and false for odd numbers.
   const evenNumbers = integers.filter((integer) => {
     return integer % 2 === 0
@@ -79,18 +79,18 @@ object.behavior()
 // - Array.prototype.forEach
 //   - `forEach` is like a "for" loop. It calls the callback for every item in
 //     the array
-   evenNumbers.forEach((thingy) => console.log('even', thingy));
-   doubles.forEach((d) => console.log('doubled!', d));
+  //  evenNumbers.forEach((thingy) => console.log('even', thingy));
+  //  doubles.forEach((d) => console.log('doubled!', d));
 
 // - Array.prototype.reduce
 //   - A bit tricky
-//   - Can transform an array into an atribrary result
+//   - Can transform an array into an arbitrary result
   const lastNames = ['Smith', 'Toure', 'Hernandez']
   const initialValue = 0;
   const totalLettersInNames = lastNames.reduce((runningTotal, currentName) => {
     return runningTotal + currentName.length;
   }, initialValue)
-  console.log({totalLettersInNames});
+  // console.log({totalLettersInNames});
 
   // The first argument is always the return value that we're building up.
   // I called it, "runningTotal" before. The default name is "accumulator."
@@ -103,8 +103,8 @@ object.behavior()
   }, {} /* second arg is always the initial value! Here, it's an empty object */);
 
   // Now we can lookup people by id!
-  console.log({lookedUpPerson1: peopleIdMap[1]})
-  console.log({lookedUpPerson2: peopleIdMap[2]});
+  // console.log({lookedUpPerson1: peopleIdMap[1]})
+  // console.log({lookedUpPerson2: peopleIdMap[2]});
 
   // Sometimes, you'll see this fancy syntax used with reduce, especially when
   // building mappings. Beware, though, there's a lot of unnecessary runtime
@@ -117,8 +117,8 @@ object.behavior()
   }), {});
 
   // Now we can lookup people by name!
-  console.log({lookupTim: peopleNameMap['tim']})
-  console.log({lookupJane: peopleNameMap['jane']});
+  // console.log({lookupTim: peopleNameMap['tim']})
+  // console.log({lookupJane: peopleNameMap['jane']});
 
 /////////////////////////// CHALLENGES ////////////////////////////////////////
 
@@ -150,12 +150,47 @@ object.behavior()
 // changes to this file with your MR for week 3.
 
 const names = [
-  'Dimitry SantiAgo',
+  'Dimitry Santiago',
   'Carlos d. Perez',
   'tam  person',
   'Mariana Gomez',
   'Amy You'
 ];
+
+// Challenge 1 - get last names
+console.log("Challenge 1:" + "\n");
+const findLastNames = names.map((name) => {
+   return name.trim().split(" ").pop();
+  //return console.log(lastName.charAt(0).toUpperCase() + lastName.slice(1));
+});
+console.log(findLastNames)
+
+// Challenge 2 - filter out names that doesn't match <first><last>
+const correctFormat = /^\w+ \w+$/
+const filteredNames = names.filter((name) => correctFormat.test(name.trim()));
+console.log("\n" + "Challenge 2:",filteredNames);
+
+// Challenge 3 - convert names to TitleCase
+console.log("\n" + "Challenge 3:" + "\n");
+const capNames = names.map((nameCase) => {
+    // if the first letter of each isn't capitalize else don't change if it is 
+    const capitalize = c => c ? c[0].toUpperCase() + c.slice(1).toLowerCase() : c;
+    return console.log(nameCase.trim().split(/ +/).map(capitalize).join(' '));
+});
+
+// Challenge 4
+function oneLastChallenge() {
+  console.log("\nChallenge 4:\n");
+
+  const capitalize = (fn) => (fn ? fn[0].toUpperCase() + fn.slice(1).toLowerCase() : fn);
+  const finalizeNames = names
+                    .filter((fn) => fn.match(/^\w+ \w+$/))
+                    .map(nameCase => nameCase.trim().split(/ +/).map(capitalize).join(' '))
+                    .filter(name => name.slice(-1).toLowerCase() !== "z")
+                    .map((name) => `Hey ${name}! Please sign up for merch!`);
+  console.log(finalizeNames);
+}
+oneLastChallenge();
 
 ///////////////////////////////////////////////////////////////////////////////
 //// put your answers above if you wish to do the challenges on your own //////
@@ -180,7 +215,7 @@ const everyonesLastName = names.map((name) => {
   const lastName = eachWordSeparated.pop();
   return lastName;
 });
-console.log('everyone last name', everyonesLastName);
+// console.log('everyone last name', everyonesLastName);
 
 //////// CHALLENGE: Filter to the people who followed the right
 // "right format" is "<first name> <last name>" with a single space!
@@ -188,7 +223,7 @@ const rightFormat = /^\w+ \w+$/;
 const matchesTeachersPedanticFormattingRule = names.filter((name) => {
   return name.match(rightFormat);
 });
-console.log('good students', matchesTeachersPedanticFormattingRule)
+// console.log('good students', matchesTeachersPedanticFormattingRule)
 // (joke :)
 
 
@@ -218,7 +253,7 @@ const titledNames = names.map((name) => {
   });
   return titledName.join(" ")
 });
-console.log('titledNames', titledNames);
+// console.log('titledNames', titledNames);
 
 // Same example as above (change every name to title case), but I'll break it
 // up into smaller pieces to make it more readable. Each callback function
@@ -299,10 +334,10 @@ const transformNameIntoTitleCase = (name) => {
   return titleCaseWords.join(' ');
 }
 
-console.log(
-  'titledNames verbose',
-  names.map(transformNameIntoTitleCase)
-)
+// console.log(
+//   'titledNames verbose',
+//   names.map(transformNameIntoTitleCase)
+// )
 
 
 //////// CHALLENGE: Remove names with the wrong format
@@ -325,4 +360,4 @@ const result = names
     Want to buy my thing?
   `);
 
-console.log('result', result);
+// console.log('result', result);
