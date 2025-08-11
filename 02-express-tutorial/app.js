@@ -38,6 +38,16 @@ app.get("/api/v1/test", (req, res) => {
     res.json({ message: "It worked!"});
 });
 
+
+const auth = (req, res, next) => {
+    const checkCookies = req.cookies.name;
+    if (checkCookies) {
+        req.user = checkCookies;
+        return next();
+    }
+    return res.status(401).json({ success: false, message: "Unauthorized access" });
+}
+
 // Wildcard syntax for newer browsers
 app.all(/.*/, (req,res) => {
     res.status(404).send('<h1>Page Not Found</h1>');
