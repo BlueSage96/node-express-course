@@ -38,6 +38,7 @@ app.get("/api/v1/test", (req, res) => {
     res.json({ message: "It worked!"});
 });
 
+
 const auth = (req, res, next) => {
     const checkCookies = req.cookies.name;
     if (checkCookies) {
